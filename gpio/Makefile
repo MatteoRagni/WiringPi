@@ -32,9 +32,9 @@ TOOLCHAIN_BIN     = $(TOOLCHAIN_BINPATH)/$(TOOLCHAIN_PREFIX)
 DEBUG	          = -O2
 
 CC                = $(TOOLCHAIN_BIN)-gcc
-LDFLAGS           = -L$(TOOLCHAIN_LIBPATH) -L$(TOOLCHAIN_INCLUDE)/../wiringPi/lib
+LDFLAGS           = -L$(TOOLCHAIN_LIBPATH) -L$(TOOLCHAIN_PATH)/../wiringPi/lib
 
-INCLUDE	          = -I$(TOOLCHAIN_INCLUDE) -I$(TOOLCHAIN_INCLUDE)/../wiringPi/include -I.
+INCLUDE	          = -I$(TOOLCHAIN_INCLUDE) -I$(TOOLCHAIN_PATH)/../wiringPi/include -I.
 CFLAGS	          = $(DEBUG) -Wall $(INCLUDE) -Winline -pipe
 
 LIBS              = -lwiringPi -lpthread -lm

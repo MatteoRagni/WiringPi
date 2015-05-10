@@ -21,21 +21,33 @@
 #    along with wiringPi.  If not, see <http://www.gnu.org/licenses/>.
 #################################################################################
 
-VERSION=$(shell cat ../VERSION)
-DESTDIR=/usr
-PREFIX=/local
+TOOLCHAIN_PREFIX  = arm-rpi-linux-gnueabi
+TOOLCHAIN_PATH    = /opt/toolchains/toolchain_rpi/$(TOOLCHAIN_PREFIX)
+TOOLCHAIN_BINPATH = $(TOOLCHAIN_PATH)/bin
+TOOLCHAIN_INCLUDE = $(TOOLCHAIN_PATH)/$(TOOLCHAIN_PREFIX)/sysroot/usr/include
+TOOLCHAIN_LIBPATH = $(TOOLCHAIN_PATH)/$(TOOLCHAIN_PREFIX)/sysroot/usr/lib
+TOOLCHAIN_BIN     = $(TOOLCHAIN_BINPATH)/$(TOOLCHAIN_PREFIX)
+
+DYN_VERS_MAJ=1
+DYN_VERS_MIN=0
+
+VERSION=$(DYN_VERS_MAJ).$(DYN_VERS_MIN)
+DESTDIR=$(TOOLCHAIN_PATH)/../wiringPi
+PREFIX=
 
 STATIC=libwiringPi.a
 DYNAMIC=libwiringPi.so.$(VERSION)
 
 #DEBUG	= -g -O0
 DEBUG	= -O2
-CC	= gcc
-INCLUDE	= -I.
-DEFS	= -D_GNU_SOURCE
-CFLAGS	= $(DEBUG) $(DEFS) -Wformat=2 -Wall -Winline $(INCLUDE) -pipe -fPIC
+CC	= $(TOOLCHAIN_BIN)-gcc
+INCLUDE	= -I$(TOOLCHAIN_INCLUDE) -I$(TOOLCHAIN_PATH)/../i2c_tools/include/linux -I. 
+CFLAGS	= $(DEBUG) $(DEFS) -Wformat=2 -Wall $(INCLUDE) -Winline -pipe -fPIC
 
 LIBS    =
+
+VERSION=$(shell cat ../VERSION)
+
 
 ###############################################################################
 

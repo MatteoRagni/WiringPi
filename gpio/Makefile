@@ -23,17 +23,24 @@
 #    along with wiringPi.  If not, see <http://www.gnu.org/licenses/>.
 #################################################################################
 
-DESTDIR=/usr
-PREFIX=/local
+TOOLCHAIN_PREFIX  = arm-rpi-linux-gnueabi
+TOOLCHAIN_PATH    = /opt/toolchains/toolchain_rpi/$(TOOLCHAIN_PREFIX)
+TOOLCHAIN_BINPATH = $(TOOLCHAIN_PATH)/bin
+TOOLCHAIN_INCLUDE = $(TOOLCHAIN_PATH)/$(TOOLCHAIN_PREFIX)/sysroot/usr/include
+TOOLCHAIN_LIBPATH = $(TOOLCHAIN_PATH)/$(TOOLCHAIN_PREFIX)/sysroot/usr/lib
+TOOLCHAIN_BIN     = $(TOOLCHAIN_BINPATH)/$(TOOLCHAIN_PREFIX)
+ 
+DEBUG	          = -O2
 
-#DEBUG	= -g -O0
-DEBUG	= -O2
-CC	= gcc
-INCLUDE	= -I$(DESTDIR)$(PREFIX)/include
-CFLAGS	= $(DEBUG) -Wall $(INCLUDE) -Winline -pipe
+CC                = $(TOOLCHAIN_BIN)-gcc
+LDFLAGS           = -L$(TOOLCHAIN_LIBPATH) -L$(TOOLCHAIN_PATH)/../wiringPi/lib
 
-LDFLAGS	= -L$(DESTDIR)$(PREFIX)/lib
-LIBS    = -lwiringPi -lwiringPiDev -lpthread -lm
+INCLUDE	          = -I$(TOOLCHAIN_INCLUDE) -I$(TOOLCHAIN_PATH)/../wiringPi/include -I.
+CFLAGS	          = $(DEBUG) -Wall $(INCLUDE) -Winline -pipe
+
+LIBS              = -lwiringPi -lpthread -lm
+
+DESTDIR = $(TOOLCHAIN_PATH)/../wiringPi/gpio
 
 # May not need to  alter anything below this line
 ###############################################################################

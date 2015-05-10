@@ -1,5 +1,5 @@
 #!/bin/bash
-
+I2C_INCLUDE_POSITION=/opt/toolchains/toolchain_rpi/i2c_tools/include
 check-make-ok()
 {
   if [ $? != 0 ]; then
@@ -47,8 +47,8 @@ fi
 # Check for I2C being installed...
 #	... and if-so, then automatically make the I2C helpers
 
-  if [ -f /usr/include/linux/i2c-dev.h ]; then
-    grep -q i2c_smbus_read_byte /usr/include/linux/i2c-dev.h
+  if [ -f $I2C_INCLUDE_POSITION/i2c-dev.h ]; then
+    grep -q i2c_smbus_read_byte $I2C_INCLUDE_POSITION/i2c-dev.h
     if [ $? = 0 ]; then
       target=i2c
       echo "Building wiringPi with the I2C helper libraries."

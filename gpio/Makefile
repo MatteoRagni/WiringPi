@@ -22,15 +22,23 @@
 #    along with wiringPi.  If not, see <http://www.gnu.org/licenses/>.
 #################################################################################
 
+TOOLCHAIN_PREFIX  = arm-rpi-linux-gnueabi
+TOOLCHAIN_PATH    = $RPI_DIR/$TOOLCHAIN_PREFIX
+TOOLCHAIN_BINPATH = $TOOLCHAIN_PATH/bin
+TOOLCHAIN_INCLUDE = $TOOLCHAIN_PATH/$TOOLCHAIN_PREFIX/sysroot/usr/include
+TOOLCHAIN_LIBPATH = $TOOLCHAIN_PATH/$TOOLCHAIN_PREFIX/sysroot/usr/lib
+TOOLCHAIN_BIN     = $TOOLCHAIN_BINPATH/$TOOLCHAIN_PREFIX
+ 
+DEBUG	          = -O2
 
-#DEBUG	= -g -O0
-DEBUG	= -O2
-CC	= gcc
-INCLUDE	= -I/usr/local/include
-CFLAGS	= $(DEBUG) -Wall $(INCLUDE) -Winline -pipe
+CC                = $TOOLCHAIN_BIN-gcc
+CFLAGS            = -I$TOOLCHAIN_INCLUDE $(DEBUG) -Wall $(INCLUDE) -Winline -pipe
+LDFLAGS           = -L$TOOLCHAIN_LIBPATH
 
-LDFLAGS	= -L/usr/local/lib
-LIBS    = -lwiringPi -lpthread -lm
+INCLUDE	          = -I$TOOLCHAIN_INCLUDE
+CFLAGS	          = $(DEBUG) -Wall $(INCLUDE) -Winline -pipe
+
+LIBS              = -lwiringPi -lpthread -lm
 
 # May not need to  alter anything below this line
 ###############################################################################

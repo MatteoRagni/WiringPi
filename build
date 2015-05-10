@@ -1,5 +1,5 @@
 #!/bin/bash
-I2C_INCLUDE_POSITION=/opt/toolchains/toolchain_rpi/i2c_tools/include
+I2C_INCLUDE_POSITION=/opt/toolchains/toolchain_rpi/i2c_tools/include/linux
 check-make-ok()
 {
   if [ $? != 0 ]; then

@@ -21,20 +21,27 @@
 #    along with wiringPi.  If not, see <http://www.gnu.org/licenses/>.
 #################################################################################
 
+TOOLCHAIN_PREFIX  = arm-rpi-linux-gnueabi
+TOOLCHAIN_PATH    = $RPI_DIR/$TOOLCHAIN_PREFIX
+TOOLCHAIN_BINPATH = $TOOLCHAIN_PATH/bin
+TOOLCHAIN_INCLUDE = $TOOLCHAIN_PATH/$TOOLCHAIN_PREFIX/sysroot/usr/include
+TOOLCHAIN_LIBPATH = $TOOLCHAIN_PATH/$TOOLCHAIN_PREFIX/sysroot/usr/lib
+TOOLCHAIN_BIN     = $TOOLCHAIN_BINPATH/$TOOLCHAIN_PREFIX
+
 DYN_VERS_MAJ=1
 DYN_VERS_MIN=0
 
 VERSION=$(DYN_VERS_MAJ).$(DYN_VERS_MIN)
-DESTDIR=/usr
-PREFIX=/local
+DESTDIR=$TOOLCHAIN_PATH
+PREFIX=
 
 STATIC=libwiringPi.a
 DYNAMIC=libwiringPi.so.$(VERSION)
 
 #DEBUG	= -g -O0
 DEBUG	= -O2
-CC	= gcc
-INCLUDE	= -I.
+CC	= $TOOLCHAIN_BIN-gcc
+INCLUDE	= -I$TOOLCHAIN_INCLUDE -I. 
 CFLAGS	= $(DEBUG) -Wall $(INCLUDE) -Winline -pipe -fPIC
 
 LIBS    =

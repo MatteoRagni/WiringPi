@@ -39,6 +39,8 @@ CFLAGS	          = $(DEBUG) -Wall $(INCLUDE) -Winline -pipe
 
 LIBS              = -lwiringPi -lpthread -lm
 
+DESTDIR = $(TOOLCHAIN_PATH)/../wiringPi/gpio
+
 # May not need to  alter anything below this line
 ###############################################################################
 
@@ -68,17 +70,17 @@ tags:	$(SRC)
 .PHONEY:	install
 install:
 	@echo "[Install]"
-	@cp gpio /usr/local/bin
-	@chown root.root /usr/local/bin/gpio
-	@chmod 4755 /usr/local/bin/gpio
-	@mkdir -p /usr/local/man/man1
-	@cp gpio.1 /usr/local/man/man1
+	@cp gpio $(DESTDIR)/bin
+	@chown root.root $(DESTDIR)/bin/gpio
+	@chmod 4755 $(DESTDIR)/gpio
+	@mkdir -p $(DESTDIR)/man/man1
+	@cp gpio.1 $(DESTDIR)/man/man1
 
 .PHONEY:	uninstall
 uninstall:
 	@echo "[UnInstall]"
-	@rm -f /usr/local/bin/gpio
-	@rm -f /usr/local/man/man1/gpio.1
+	@rm -f $(DESTDIR)/bin/gpio
+	@rm -f $(DESTDIR)/man/man1/gpio.1
 
 .PHONEY:	depend
 depend:

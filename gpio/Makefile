@@ -23,7 +23,7 @@
 #################################################################################
 
 TOOLCHAIN_PREFIX  = arm-rpi-linux-gnueabi
-TOOLCHAIN_PATH    = /opt/toolchains/toolcahin_rpi/$(TOOLCHAIN_PREFIX)
+TOOLCHAIN_PATH    = /opt/toolchains/toolchain_rpi/$(TOOLCHAIN_PREFIX)
 TOOLCHAIN_BINPATH = $(TOOLCHAIN_PATH)/bin
 TOOLCHAIN_INCLUDE = $(TOOLCHAIN_PATH)/$(TOOLCHAIN_PREFIX)/sysroot/usr/include
 TOOLCHAIN_LIBPATH = $(TOOLCHAIN_PATH)/$(TOOLCHAIN_PREFIX)/sysroot/usr/lib
